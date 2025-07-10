@@ -1,235 +1,393 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cre: Thịnh</title>
+    <audio id="music" loop>
+    <source src="https://cdn.glitch.global/a9f9af15-40a4-4b18-94e4-321afb9af45d/6718929723203.mp3?v=1750255763472" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const music = document.getElementById("music");
+    music.volume = 0.2; // 👈 Giảm âm lượng xuống 50%
+
+    document.addEventListener("click", () => {
+      music.play().catch((e) => {
+        console.error("Không thể phát nhạc:", e);
+      });
+    }, { once: true });
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chúc mừng sinh nhật🎉🥳</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap&subset=vietnamese');
+
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background: linear-gradient(to bottom right, #ff9ec4, #ffd6ec);
+      padding: 0;
+      font-family: 'Comic Neue', cursive, sans-serif;
+      background: linear-gradient(270deg, #ffd1dc, #ffb6c1, #ffe0f7, #e0f7ff);
+      background-size: 800% 800%;
+      animation: gradientShift 15s ease infinite;
       overflow: hidden;
-      color: white;
-    }
-
-    .fade-out {
-      opacity: 1;
-      transition: opacity 0.8s ease-out;
-    }
-
-    .fade-out.hidden {
-      opacity: 0;
-    }
-
-    .stars {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: url('https://media.discordapp.net/attachments/1368956522813460522/1379697174228504656/image.png?ex=68412e9f&is=683fdd1f&hm=7edcf2687416f33e28854b615ef21054b39ce1d6cadcf0b1abcf0093972991a5&=&format=webp&quality=lossless&width=880&height=584') repeat;
-      animation: twinkle 50s linear infinite;
-      z-index: 0;
-      opacity: 0.5;
-    }
-
-    @keyframes twinkle {
-      0% { background-position: 0 0; }
-      100% { background-position: 2000px 2000px; }
-    }
-
-    .container {
+      text-align: center;
+      color: #ff1493;
       position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: row;
-      gap: 40px;
-      padding: 40px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(10px);
+      height: 100vh;
     }
 
-    .avatar {
+    @keyframes gradientShift {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    h1 {
+      font-size: 3.5em;
+      margin-top: 80px;
+      opacity: 0;
+      transform: scale(0.6);
+      animation: popScale 1s ease forwards;
+      animation-delay: 0.3s;
+      color: #ff3366;
+      text-shadow: 0 0 15px #ff66aa;
+      user-select: none;
+    }
+
+    @keyframes popScale {
+      0% { opacity: 0; transform: scale(0.6); }
+      50% { opacity: 1; transform: scale(1.1); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .message {
+      font-size: 1.4em;
+      max-width: 650px;
+      margin: 25px auto 0;
+      min-height: 3em;
+      color: #d6336c;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 1.5s;
+      user-select: none;
+    }
+
+    @keyframes fadeIn {
+      to {opacity: 1;}
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -80px;
+      width: 40px;
+      height: 60px;
+      border-radius: 50% / 60%;
+      opacity: 0.8;
+      animation: floatUp 10s linear infinite;
+      filter: drop-shadow(0 0 2px #ff77aa);
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+
+    .gift-btn {
+      margin-top: 35px;
+      padding: 14px 36px;
+      font-size: 1.3em;
+      border: none;
+      background-color: #ff4c8b;
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(255, 76, 139, 0.6);
+      transition: transform 0.25s ease;
+      opacity: 0;
+      animation: fadeInUp 0.7s ease forwards;
+      animation-delay: 2.5s;
+      z-index: 10;
+    }
+
+    .gift-btn:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      animation: explode 1s ease-out forwards;
+    }
+
+    @keyframes explode {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--x), var(--y)) scale(0.3);
+        opacity: 0;
+      }
+    }
+
+    .music-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.7em;
+      cursor: pointer;
+      color: #ff3366;
+      filter: drop-shadow(0 0 2px #ff77aa);
+      z-index: 11;
+    }
+
+    .cake {
+      position: fixed;
+      top: 60vh;
+      left: 50%;
+      transform: translate(-50%, -100%);
+      width: 180px;
+      height: 180px;
+      background-image: url('https://cdn.glitch.global/a9f9af15-40a4-4b18-94e4-321afb9af45d/scripts%2Fz6718774191125_ecbb21037bacd32cb55978138e7fc092.jpg?v=1750252886876');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 15;
+      transition: top 1.5s ease, opacity 0.3s ease;
+    }
+
+    .firework-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
       width: 200px;
       height: 200px;
-      background: rgba(255, 255, 255, 0.15);
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+    }
+
+    .firework {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 6px;
+      height: 20px;
+      background: radial-gradient(circle, #fff 0%, transparent 70%);
+      border-radius: 50% 50% 0 0;
+      transform-origin: bottom center;
+      opacity: 0;
+      animation: fireworkExplode 1s ease forwards;
+    }
+
+    @keyframes fireworkExplode {
+      0% { opacity: 1; transform: translateY(0) scaleY(1); }
+      100% { opacity: 0; transform: translateY(-100px) scaleY(3); }
+    }
+
+    .photo {
+      position: fixed;
+      width: 120px;
+      height: 120px;
       border-radius: 20px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      color: white;
-      font-weight: bold;
-      overflow: hidden;
-    }
-
-    .avatar img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      margin-bottom: 10px;
-    }
-
-    .pass-box {
-      text-align: center;
-    }
-
-    .pass-box h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
-      color: white;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-    }
-
-    .input-field {
-      padding: 12px;
-      font-size: 22px;
-      border: none;
-      border-radius: 12px;
-      width: 200px;
-      text-align: center;
-      margin-bottom: 20px;
+      object-fit: cover;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+      opacity: 0;
+      pointer-events: none;
+      border: 5px solid white;
       background: white;
-      color: #ff66a5;
-      font-weight: bold;
+      z-index: 30;
+      transition: transform 3s ease, opacity 3s ease;
+      transform: translate(-50%, -50%);
     }
 
-    .keypad {
-      display: grid;
-      grid-template-columns: repeat(3, 60px);
-      gap: 10px;
-      justify-content: center;
-    }
-
-    .key {
-      background: white;
-      color: #ff66a5;
-      border-radius: 12px;
-      font-size: 22px;
-      font-weight: bold;
-      padding: 15px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: transform 0.1s ease-in-out;
-    }
-
-    .key:hover {
-      background-color: #ffe2f0;
-    }
-
-    .key:active {
-      transform: scale(0.95);
-    }
-
-    .action {
-      grid-column: span 3;
-      display: flex;
-      justify-content: space-between;
-      margin-top: 15px;
-    }
-
-    .btn-clear, .btn-submit {
-      padding: 10px 20px;
-      font-size: 24px;
-      border: none;
-      border-radius: 50%;
-      background-color: #ff66a5;
-      color: white;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      transition: background 0.3s;
-    }
-
-    .btn-clear:hover, .btn-submit:hover {
-      background-color: #ff3c8a;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        gap: 20px;
-        padding: 20px;
+    /* Responsive cho điện thoại */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2.2em;
+        margin-top: 50px;
       }
-
-      .avatar {
-        width: 150px;
-        height: 150px;
-        margin: 0 auto;
+      .message {
+        font-size: 1.1em;
+        max-width: 90%;
       }
-
-      .keypad {
-        grid-template-columns: repeat(3, 60px);
+      .gift-btn {
+        font-size: 1.1em;
+        padding: 12px 28px;
       }
-
-      .input-field {
-        width: 180px;
-        font-size: 20px;
+      .cake {
+        width: 120px;
+        height: 120px;
+        top: 65vh !important;
+      }
+      .firework-container {
+        width: 140px;
+        height: 140px;
+      }
+      .photo {
+        width: 70px !important;
+        height: 70px !important;
+        border-radius: 15px !important;
+        border-width: 3px !important;
+        box-shadow: 0 0 10px rgba(255, 105, 180, 0.6) !important;
       }
     }
   </style>
 </head>
-<body class="fade-out">
-  <div class="stars"></div>
-  <div class="container">
-    <div class="avatar">
-      <img src="https://media.discordapp.net/attachments/1368956522813460522/1379696192879067196/IMG_3696.jpg?ex=68412db5&is=683fdc35&hm=d357d4d07eeac52eb6cb5924cdf78b8ec182af42c4b841e008b10a8ae42727ec&=&format=webp&width=576&height=703" alt="Avatar">
-      đáng iu 1st😘
-    </div>
-    <div class="pass-box">
-      <h1> Ngày sinh nhật😊</h1>
-      <input type="text" class="input-field" id="pass" readonly>
-      <div class="keypad">
-        <div class="key" onclick="appendNum('1')">1</div>
-        <div class="key" onclick="appendNum('2')">2</div>
-        <div class="key" onclick="appendNum('3')">3</div>
-        <div class="key" onclick="appendNum('4')">4</div>
-        <div class="key" onclick="appendNum('5')">5</div>
-        <div class="key" onclick="appendNum('6')">6</div>
-        <div class="key" onclick="appendNum('7')">7</div>
-        <div class="key" onclick="appendNum('8')">8</div>
-        <div class="key" onclick="appendNum('9')">9</div>
-        <div class="key" onclick="clearPass()">X</div>
-        <div class="key" onclick="appendNum('0')">0</div>
-        <div class="key" onclick="submitPass()">✔</div>
-      </div>
-    </div>
-  </div>
+<body>
+  <button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+  <h1>🎂 Chúc mừng sinh nhật! 🎉</h1>
+  <div class="message" id="typing"></div>
+  <button class="gift-btn" id="giftBtn">🎁 Mở quà bất ngờ</button>
+
+  <div class="cake" id="cake"></div>
+  <div class="firework-container" id="fireworkContainer"></div>
 
   <script>
-    const correctPass = "0401";
-    const redirectURL = "https://bustling-animated-erigeron.glitch.me/"; // Đổi thành link thật của bạn
+    const message = "Chúc mừng sinh nhật người con gái tuyệt vời nhất cuộc đời anh! Anh mong em luôn mạnh khỏe, luôn rạng rỡ và hạnh phúc. Anh sẽ luôn cố gắng để mang đến cho em những điều đẹp nhất, vì em xứng đáng được yêu thương trọn vẹn.";
+    let idx = 0;
+    function type() {
+      if (idx < message.length) {
+        document.getElementById("typing").textContent += message[idx++];
+        setTimeout(type, 45);
+      }
+    }
+    setTimeout(type, 1600);
 
-    function appendNum(num) {
-      const input = document.getElementById('pass');
-      if (input.value.length < 6) input.value += num;
+    const colors = ['#ffb6c1', '#ffd1dc', '#ff69b4', '#ffc0cb', '#ff77aa'];
+    for (let i = 0; i < 25; i++) {
+      const balloon = document.createElement("div");
+      balloon.className = "balloon";
+      balloon.style.left = Math.random() * 100 + "vw";
+      balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      balloon.style.animationDelay = (Math.random() * 10) + "s";
+      balloon.style.animationDuration = (7 + Math.random() * 8) + "s";
+      balloon.style.bottom = "-60px";
+      document.body.appendChild(balloon);
     }
 
-    function clearPass() {
-      document.getElementById('pass').value = '';
+    function toggleMusic() {
+      const music = document.getElementById("music");
+      music.paused ? music.play() : music.pause();
     }
 
-    function submitPass() {
-      const pass = document.getElementById('pass').value;
-      if (pass === correctPass) {
-        document.body.classList.add('hidden');
-        setTimeout(() => {
-          window.location.href = redirectURL;
-        }, 800);
-      } else {
-        alert('sai rui 😊');
+    function showConfetti() {
+      const confettiColors = ['#ff6f91', '#ff9671', '#ffc75f', '#f9f871', '#ff3c78'];
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        confetti.style.setProperty('--x', (Math.random() * 400 - 200) + 'px');
+        confetti.style.setProperty('--y', (Math.random() * -400) + 'px');
+        confetti.style.left = (window.innerWidth / 2) + 'px';
+        confetti.style.top = (window.innerHeight / 2) + 'px';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 1000);
       }
     }
 
-    // Hiện hiệu ứng khi trang tải
-    window.onload = () => {
-      document.body.classList.remove('hidden');
-    };
+    function showFirework() {
+      const container = document.getElementById('fireworkContainer');
+      container.innerHTML = '';
+      container.style.opacity = 1;
+      for (let i = 0; i < 30; i++) {
+        const fw = document.createElement('div');
+        fw.className = 'firework';
+        fw.style.transform = `rotate(${i * 12}deg) translateY(-40px)`;
+        container.appendChild(fw);
+      }
+      setTimeout(() => container.style.opacity = 0, 1000);
+    }
+
+    const cake = document.getElementById('cake');
+    const photoUrls = [
+      "https://media.discordapp.net/attachments/1368956522813460522/1392710387060969550/z6789242436249_6073d15fecee3231ca9a4a1de269f3eb.jpg?ex=6870861f&is=686f349f&hm=667cb2a1e24f7f932495391f1d75aec7e04dfb84f18883a9de1c4ea8d855a88c&=&format=webp&width=662&height=725",
+      "https://media.discordapp.net/attachments/1368956522813460522/1392710387396509788/z6789242436250_ed8e083d4dd9e0b3e5a723104cfbc081.jpg?ex=6870861f&is=686f349f&hm=2f84c86562c9a307eb4da74888596792d39a4c2cd1d83d927c659656e823c265&=&format=webp&width=620&height=725",
+      "https://media.discordapp.net/attachments/1368956522813460522/1392710387673071696/z6789242450366_50caeb958e9ca936d642bb1e102810fc.jpg?ex=6870861f&is=686f349f&hm=052ffc7e389ec60fda0e8b026d183a2ea3f4662ca81c38006dcb106da5bfc6ba&=&format=webp&width=671&height=725",
+      "https://media.discordapp.net/attachments/1368956522813460522/1392710388050690088/z6789242452962_d8aee724e1dac1488fb018a429659df6.jpg?ex=6870861f&is=686f349f&hm=7731b2d8ded8557de5ad24bd5b08bf59660de873b26748e32ae8191a329c67d8&=&format=webp&width=701&height=725",
+      "https://media.discordapp.net/attachments/1368956522813460522/1392710388486901881/z6789242462248_3e2fc1d6c587e10d2780958d6eb4407a.jpg?ex=6870861f&is=686f349f&hm=a2aacb7f29bddba5aad136116c7579f96432fbfa96d486ec55171f41c97f1ad6&=&format=webp&width=693&height=725"
+    ];
+
+    document.getElementById("giftBtn").addEventListener("click", () => {
+      cake.style.top = '50vh';
+      cake.style.opacity = 1;
+      setTimeout(() => {
+        showConfetti();
+        showFirework();
+        spawnHeartPhotosCentered();
+      }, 1500);
+    });
+
+    function createHeartPhotoCentered(idx, total) {
+      const photo = document.createElement('img');
+      photo.src = photoUrls[idx % photoUrls.length];
+      photo.className = 'photo';
+      document.body.appendChild(photo);
+
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      const t = Math.PI * 2 * (idx / total);
+
+      // Tỉ lệ scale trái tim nhỏ lại trên màn hình nhỏ
+      let scale = 22;
+      if(window.innerWidth <= 480) {
+        scale = 14;
+      }
+
+      const targetX = scale * 16 * Math.pow(Math.sin(t), 3);
+      const targetY = -scale * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+
+      photo.style.left = centerX + 'px';
+      photo.style.top = centerY + 'px';
+      photo.style.opacity = '1';
+      photo.style.pointerEvents = 'auto';
+
+      let progress = 0;
+      const steps = 100;
+
+      function animate() {
+        if (progress <= steps) {
+          const curX = centerX + (targetX * progress / steps);
+          const curY = centerY + (targetY * progress / steps);
+          photo.style.left = curX + 'px';
+          photo.style.top = curY + 'px';
+          progress++;
+          requestAnimationFrame(animate);
+        } else {
+          photo.style.left = (centerX + targetX) + 'px';
+          photo.style.top = (centerY + targetY) + 'px';
+        }
+      }
+      animate();
+    }
+
+    function spawnHeartPhotosCentered() {
+      const totalPhotos = 30;
+      for (let i = 0; i < totalPhotos; i++) {
+        setTimeout(() => createHeartPhotoCentered(i, totalPhotos), i * 70);
+      }
+    }
   </script>
 </body>
 </html>
